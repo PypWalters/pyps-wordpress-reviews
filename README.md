@@ -1,4 +1,4 @@
-# Project Title
+# Pyp's WordPress Reviews
 
 This is a light-weight WordPress plugin that extends native WordPress comments to add a 5-star review field based on post type.
 
