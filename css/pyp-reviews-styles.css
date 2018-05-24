@@ -1,0 +1,51 @@
+/*css for rating form*/
+#comment-form-rating{
+  margin-bottom:25px;
+}
+
+#comment-form-rating .rating {
+    overflow: hidden;
+    display: inline-block;
+}
+
+#comment-form-rating .star-holder{
+  display:flex;
+  flex-flow:row-reverse;
+  justify-content: flex-end;
+}
+
+#comment-form-rating .rating-input, .rating input[type="radio"],
+#comment-form-rating .rating input[type="checkbox"] {
+    float: right;
+    width: 16px;
+    height: 20px;
+    padding: 0;
+    margin: 0 10px 0 -16px !important;
+    opacity: 0;
+}
+
+#comment-form-rating .rating:hover .rating-star:hover .rating-star:before,
+#comment-form-rating .rating:hover .rating-star:hover ~ .rating-star:before,
+#comment-form-rating .rating-input:checked ~ .rating-star:before {
+    color:orange !important;
+}
+
+#comment-form-rating .rating-star,
+#comment-form-rating .rating:hover .rating-star {
+    position: relative;
+    display: block;
+    width: 16px;
+    height: 20px;
+    font-size:22px;
+    line-height:1em;
+}
+
+#comment-form-rating .rating-star:before,
+#comment-form-rating .rating:hover .rating-star:before{
+  font-family:dashicons;
+  content: "\f155";
+  color:#ddd;
+  cursor: pointer;
+}
+
+/*css for comment display*/
