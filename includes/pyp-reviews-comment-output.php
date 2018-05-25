@@ -48,8 +48,8 @@
 		  }
 
       public function display_saved_review( $text, $comment_obj ) {
-        $pyp_rating = get_comment_meta( $comment_obj->comment_ID , 'pyp_rating', single );
-        if ( !empty( $pyp_rating ) ) {
+        $pyp_rating = get_comment_meta( $comment_obj->comment_ID , 'pyp_rating', 'single' );
+        if ( ! empty( $pyp_rating ) ) {
           return 'Rated ' . $pyp_rating . '/5<br />' . $text;
         }
         return $text;
