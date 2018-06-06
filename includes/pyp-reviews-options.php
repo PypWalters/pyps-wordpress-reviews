@@ -168,7 +168,7 @@ class Pyp_Reviews_Options {
 		return $input;
 	}
 
-	 /**
+	/**
 		* Render checkbox to see if users need to be logged in
 		*/
 	public function pyp_review_posts_callback() {
