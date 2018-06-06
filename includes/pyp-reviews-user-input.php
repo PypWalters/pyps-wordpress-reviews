@@ -103,7 +103,7 @@ class Pyp_Reviews_Create_Rating {
 	public function pyp_save_comment_meta_data( $comment_id ) {
 		//safety first
 		$retrieved_nonce = $_REQUEST['_pyp_review_nonce'];
-		if ( current_user_can( 'edit_comment', $comment_id ) && isset( $_POST['pyp-rating-input'] ) && wp_verify_nonce( $retrieved_nonce, 'create_review' ) ) {
+		if ( isset( $_POST['pyp-rating-input'] ) && wp_verify_nonce( $retrieved_nonce, 'create_review' ) ) {
 
 			if ( is_int( intval( $_POST['pyp-rating-input'] ) ) && 0 < intval( $_POST['pyp-rating-input'] ) ) {
 				$clean_rating = intval( $_POST['pyp-rating-input'] );
