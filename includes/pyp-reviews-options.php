@@ -116,6 +116,7 @@ class Pyp_Reviews_Options {
 				// This prints out all hidden setting fields
 				settings_fields( 'pyp_review_option_group' );
 				do_settings_sections( 'pyp-review-setting-admin' );
+				// TODO: create nonce for form
 				submit_button();
 			?>
 			</form>
@@ -165,6 +166,7 @@ class Pyp_Reviews_Options {
 		* @param array $input Contains all settings fields as array keys
 		*/
 	public function sanitize( $input ) {
+		// TODO: add actual sanizization
 		return $input;
 	}
 
@@ -173,10 +175,10 @@ class Pyp_Reviews_Options {
 		*/
 	public function pyp_review_posts_callback() {
 
+		$this->get_relevant_post_types();
+
 		foreach ( $this->available_post_types as $pt_value => $pt_name ) {
-
 			$checked = '';
-
 					// let's see if this one is checked
 			if ( ! empty( $this->options['post_type'] ) && in_array( $pt_value, $this->options['post_type'] ) ) {
 					$checked = $pt_value;
@@ -184,8 +186,8 @@ class Pyp_Reviews_Options {
 
 					$echo = false;
 
-					echo '<p><label for="post_type_' . $pt_value . '">';
-					echo '<input id="post_type_' . $pt_value . '" type="checkbox" name="pyp_review_options[post_type][]" value="' . $pt_value . '"' . checked( $checked, $pt_value, $echo ) . '> ' . $pt_name;
+					echo '<p><label for="post_type_' . esc_attr( $pt_value ) . '">';
+					echo '<input id="post_type_' . esc_attr( $pt_value ) . '" type="checkbox" name="pyp_review_options[post_type][]" value="' . esc_attr( $pt_value ) . '"' . checked( $checked, $pt_value, $echo ) . '> ' . esc_html( $pt_name );
 					echo '</label></p>';
 
 		}
@@ -196,7 +198,7 @@ class Pyp_Reviews_Options {
 		* get a listing of public post types in a theme so we can use them as options
 		*/
 	public function get_relevant_post_types() {
-		$post_type_args             = array(
+		$post_type_args = array(
 			'public' => true,
 		);
 		$this->available_post_types = get_post_types( $post_type_args, 'names', 'and' );
