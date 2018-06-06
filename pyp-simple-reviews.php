@@ -2,7 +2,7 @@
 /*
 Plugin Name: Pyp Simple WordPress Reviews
 Description: Adds the option for 5 star reviews on native wordpress comments
-Version: 1.0
+Version: 1.1
 Author: Stephanie Walters
 Author URI: https://pypwalters.com
 Text Domain: pyp_reviews
@@ -15,7 +15,7 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * Currently plugin version.
  */
-define( 'PLUGIN_NAME_VERSION', '1.0.0' );
+define( 'PLUGIN_NAME_VERSION', '1.1.0' );
 
 /**
  * This file just pulls in all of the other files
