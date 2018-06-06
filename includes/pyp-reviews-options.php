@@ -116,7 +116,6 @@ class Pyp_Reviews_Options {
 				// This prints out all hidden setting fields
 				settings_fields( 'pyp_review_option_group' );
 				do_settings_sections( 'pyp-review-setting-admin' );
-				// TODO: create nonce for form
 				submit_button();
 			?>
 			</form>
@@ -166,8 +165,11 @@ class Pyp_Reviews_Options {
 		* @param array $input Contains all settings fields as array keys
 		*/
 	public function sanitize( $input ) {
-		// TODO: add actual sanizization
-		return $input;
+		if ( check_admin_referer( 'pyp_review_option_group-options' ) && current_user_can( 'edit_posts' ) ) {
+			return $input;
+		} else {
+			exit();
+		}
 	}
 
 	/**
