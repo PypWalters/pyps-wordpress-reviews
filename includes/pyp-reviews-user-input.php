@@ -67,7 +67,7 @@ class Pyp_Reviews_Create_Rating {
 
 	public function get_review_options() {
 		$this->options = get_option( 'pyp_review_options' );
-		if ( in_array( get_post_type(), $this->options['post_type'] ) ) {
+		if ( in_array( get_post_type(), $this->options['post_type'], true ) ) {
 			return true;
 		} else {
 			return false;
