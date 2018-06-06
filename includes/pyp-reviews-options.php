@@ -49,7 +49,7 @@ class Pyp_Reviews_Options {
 	/**
 	 * Class constructor.
 	 *
-	 * Left empty in purpose. This class uses the init method.
+	 * Left empty on purpose. This class uses the init method.
 	 *
 	 * @since 1.0
 	 * @access private
