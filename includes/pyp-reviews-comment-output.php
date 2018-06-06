@@ -1,14 +1,14 @@
 <?php
 /**
-  *
-  * Displaying the star reviews after they have been submit
-  * @since 1.0
-  */
+ *
+ * Displaying the star reviews after they have been submit
+ * @since 1.0
+ */
 
-  class Pyp_Reviews_Output{
-    /**
-  	 * Contains the instance of the class
-  	 *
+class Pyp_Reviews_Output{
+  /**
+    * Contains the instance of the class
+    *
   	 * @since 1.0
   	 * @access private
   	 * @var static
@@ -50,11 +50,11 @@
       public function display_saved_review( $text, $comment_obj ) {
         $pyp_rating = get_comment_meta( $comment_obj->comment_ID , 'pyp_rating', 'single' );
         if ( ! empty( $pyp_rating ) ) {
-          return 'Rated ' . $pyp_rating . '/5<br />' . $text;
+          return esc_html__( 'Rated' ) . ' ' . esc_html( $pyp_rating ) . '/5<br />' . $text;
         }
         return $text;
       }
 
       // TODO: make sure review contains propper schema
 
-  }
+}
