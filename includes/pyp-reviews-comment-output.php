@@ -43,10 +43,21 @@ class Pyp_Reviews_Output {
 		return self::$instance;
 	}
 
+	/**
+	 * Hooks the functions into WP
+	 *
+	 * @since 1.0
+	 */
 	public function hooks() {
 		add_filter( 'comment_text', array( $this, 'display_saved_review' ), 10, 2 );
 	}
 
+	/**
+	 * Displays the rating from the meta before the comment on a previously
+	 * submit review
+	 *
+	 * @since 1.0
+	 */
 	public function display_saved_review( $text, $comment_obj ) {
 		$pyp_rating = get_comment_meta( $comment_obj->comment_ID, 'pyp_rating', 'single' );
 		if ( ! empty( $pyp_rating ) ) {

@@ -58,8 +58,10 @@ class Pyp_Reviews_Create_Rating {
 		return self::$instance;
 	}
 
-	/*
+	/**
 	 * Hooks up the functions
+	 *
+	 * @since 1.0
 	 */
 	public function hooks() {
 		add_action( 'comment_form_before_fields', array( $this, 'pyp_add_rating_field' ) );
@@ -82,8 +84,10 @@ class Pyp_Reviews_Create_Rating {
 		}
 	}
 
-	/*
+	/**
 	 * Displays the radio butons in the comment form for the rating
+	 *
+	 * @since 1.0
 	 */
 	public function pyp_add_rating_field() {
 		global $post;
@@ -109,8 +113,10 @@ class Pyp_Reviews_Create_Rating {
 		endif;
 	}
 
-	/*
+	/**
 	 * Cleans and saves the review to the database as meta data
+	 *
+	 * @since 1.0
 	 */
 	public function pyp_save_comment_meta_data( $comment_id ) {
 		//safety first

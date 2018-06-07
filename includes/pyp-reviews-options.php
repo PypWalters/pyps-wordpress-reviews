@@ -90,6 +90,8 @@ class Pyp_Reviews_Options {
 
 		/**
 		 * Add options page
+		 *
+		 * @since 1.0
 		 */
 	public function add_plugin_page() {
 			// This page will be under "Settings"
@@ -104,6 +106,8 @@ class Pyp_Reviews_Options {
 
 	/**
 	 * Options page callback
+	 *
+	 * @since 1.0
 	 */
 	public function create_admin_page() {
 		// Set class property
@@ -125,6 +129,8 @@ class Pyp_Reviews_Options {
 
 	/**
 	 * Register and add settings
+	 *
+	 * @since 1.0
 	 */
 	public function page_init() {
 
@@ -153,6 +159,8 @@ class Pyp_Reviews_Options {
 
 	/**
 	 * Print the Section text
+	 *
+	 * @since 1.0
 	 */
 	public function print_section_info() {
 		echo '<p>' . esc_html__( 'Enter your settings below:', 'pyp_review' ) . '</p>';
@@ -162,6 +170,8 @@ class Pyp_Reviews_Options {
 	 * Sanitize each setting field as needed
 	 *
 	 * @param array $input Contains all settings fields as array keys
+	 *
+	 * @since 1.1
 	 */
 	public function sanitize( $input ) {
 		if ( check_admin_referer( 'pyp_review_option_group-options' ) && current_user_can( 'edit_posts' ) ) {
@@ -173,6 +183,8 @@ class Pyp_Reviews_Options {
 
 	/**
 	 * Render checkbox to see if users need to be logged in
+	 *
+	 * @since 1.0
 	 */
 	public function pyp_review_posts_callback() {
 
@@ -195,6 +207,7 @@ class Pyp_Reviews_Options {
 
 	/**
 	 * Get a listing of public post types in a theme so we can use them as options
+	 * @since 1.1
 	 */
 	public function get_relevant_post_types() {
 		$post_type_args = array(
