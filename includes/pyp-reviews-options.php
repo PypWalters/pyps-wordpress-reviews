@@ -186,11 +186,9 @@ class Pyp_Reviews_Options {
 					$checked = $pt_value;
 			}
 
-					//$echo = false;
-
-					echo '<p><label for="post_type_' . esc_attr( $pt_value ) . '">';
-					echo '<input id="post_type_' . esc_attr( $pt_value ) . '" type="checkbox" name="pyp_review_options[post_type][]" value="' . esc_attr( $pt_value ) . '"' . checked( $checked, $pt_value, false ) . '> ' . esc_html( $pt_name );
-					echo '</label></p>';
+			echo '<p><label for="post_type_' . esc_attr( $pt_value ) . '">';
+			echo '<input id="post_type_' . esc_attr( $pt_value ) . '" type="checkbox" name="pyp_review_options[post_type][]" value="' . esc_attr( $pt_value ) . '"' . checked( $checked, $pt_value, false ) . '> ' . esc_html( $pt_name );
+			echo '</label></p>';
 
 		}
 		echo '<p>' . esc_html__( "Don't see the post type your are looking for? Make sure the post type is declared as a public post type." ) . '</p>';
