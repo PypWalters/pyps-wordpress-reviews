@@ -43,12 +43,12 @@ class Pyp_Reviews_Create_Rating {
 	private function __construct() {}
 
 	/**
-		 * Creates and instance of this class.
-		 *
-		 * @since 1.0
-		 *
-		 * @return object
-		 */
+	 * Creates and instance of this class.
+	 *
+	 * @since 1.0
+	 *
+	 * @return object
+	 */
 	public static function get_instance() {
 		if ( is_null( self::$instance ) ) {
 			self::$instance = new self();
@@ -58,7 +58,9 @@ class Pyp_Reviews_Create_Rating {
 		return self::$instance;
 	}
 
-
+	/*
+	 * Hooks up the functions
+	 */
 	public function hooks() {
 		add_action( 'comment_form_before_fields', array( $this, 'pyp_add_rating_field' ) );
 		add_action( 'comment_form_logged_in_after', array( $this, 'pyp_add_rating_field' ) );
@@ -69,7 +71,7 @@ class Pyp_Reviews_Create_Rating {
 	 * Get the post type of the current page and see if it matches any post
 	 * types saved in 'pyp_review_options'
 	 *
-	 * @Return boolean
+	 * @return boolean
 	 */
 	public function get_review_options() {
 		$this->options = get_option( 'pyp_review_options' );
@@ -80,11 +82,12 @@ class Pyp_Reviews_Create_Rating {
 		}
 	}
 
+	/*
+	 * Displays the radio butons in the comment form for the rating
+	 */
 	public function pyp_add_rating_field() {
 		global $post;
-
 		if ( $this->get_review_options() ) :
-
 		?>
 		<div id="comment-form-rating">
 			<label>Your Rating for:</label>
@@ -106,6 +109,9 @@ class Pyp_Reviews_Create_Rating {
 		endif;
 	}
 
+	/*
+	 * Cleans and saves the review to the database as meta data
+	 */
 	public function pyp_save_comment_meta_data( $comment_id ) {
 		//safety first
 		$retrieved_nonce = $_REQUEST['_pyp_review_nonce'];
