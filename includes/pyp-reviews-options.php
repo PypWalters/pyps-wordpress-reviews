@@ -182,14 +182,14 @@ class Pyp_Reviews_Options {
 		foreach ( $this->available_post_types as $pt_value => $pt_name ) {
 			$checked = '';
 					// let's see if this one is checked
-			if ( ! empty( $this->options['post_type'] ) && in_array( $pt_value, $this->options['post_type'] ) ) {
+			if ( ! empty( $this->options['post_type'] ) && in_array( $pt_value, $this->options['post_type'], true ) ) {
 					$checked = $pt_value;
 			}
 
-					$echo = false;
+					//$echo = false;
 
 					echo '<p><label for="post_type_' . esc_attr( $pt_value ) . '">';
-					echo '<input id="post_type_' . esc_attr( $pt_value ) . '" type="checkbox" name="pyp_review_options[post_type][]" value="' . esc_attr( $pt_value ) . '"' . checked( $checked, $pt_value, $echo ) . '> ' . esc_html( $pt_name );
+					echo '<input id="post_type_' . esc_attr( $pt_value ) . '" type="checkbox" name="pyp_review_options[post_type][]" value="' . esc_attr( $pt_value ) . '"' . checked( $checked, $pt_value, false ) . '> ' . esc_html( $pt_name );
 					echo '</label></p>';
 
 		}
