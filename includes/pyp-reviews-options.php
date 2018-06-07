@@ -102,7 +102,7 @@ class Pyp_Reviews_Options {
 			);
 	}
 
-		/**
+	/**
 	 * Options page callback
 	 */
 	public function create_admin_page() {
@@ -113,7 +113,7 @@ class Pyp_Reviews_Options {
 			<h1><?php esc_html_e( 'Review Settings', 'pyp_review' ); ?></h1>
 			<form method="post" action="options.php">
 			<?php
-				// This prints out all hidden setting fields
+				// This prints out all hidden setting fields including the nonce
 				settings_fields( 'pyp_review_option_group' );
 				do_settings_sections( 'pyp-review-setting-admin' );
 				submit_button();
@@ -123,8 +123,7 @@ class Pyp_Reviews_Options {
 		<?php
 	}
 
-		//Create the options on the options page
-		/**
+	/**
 	 * Register and add settings
 	 */
 	public function page_init() {
@@ -152,18 +151,18 @@ class Pyp_Reviews_Options {
 
 	}
 
-		/**
+	/**
 	 * Print the Section text
 	 */
 	public function print_section_info() {
 		echo '<p>' . esc_html__( 'Enter your settings below:', 'pyp_review' ) . '</p>';
 	}
 
-		/**
-		* Sanitize each setting field as needed
-		*
-		* @param array $input Contains all settings fields as array keys
-		*/
+	/**
+	 * Sanitize each setting field as needed
+	 *
+	 * @param array $input Contains all settings fields as array keys
+	 */
 	public function sanitize( $input ) {
 		if ( check_admin_referer( 'pyp_review_option_group-options' ) && current_user_can( 'edit_posts' ) ) {
 			return wp_unslash( $input );
@@ -173,15 +172,15 @@ class Pyp_Reviews_Options {
 	}
 
 	/**
-		* Render checkbox to see if users need to be logged in
-		*/
+	 * Render checkbox to see if users need to be logged in
+	 */
 	public function pyp_review_posts_callback() {
 
 		$this->get_relevant_post_types();
 
 		foreach ( $this->available_post_types as $pt_value => $pt_name ) {
 			$checked = '';
-					// let's see if this one is checked
+			//check if each one was previously checked and is saved in options
 			if ( ! empty( $this->options['post_type'] ) && in_array( $pt_value, $this->options['post_type'], true ) ) {
 					$checked = $pt_value;
 			}
@@ -195,8 +194,8 @@ class Pyp_Reviews_Options {
 	}
 
 	/**
-		* get a listing of public post types in a theme so we can use them as options
-		*/
+	 * Get a listing of public post types in a theme so we can use them as options
+	 */
 	public function get_relevant_post_types() {
 		$post_type_args = array(
 			'public' => true,
