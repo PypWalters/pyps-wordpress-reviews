@@ -4,7 +4,7 @@ This is a light-weight WordPress plugin that extends native WordPress comments t
 
 ## Use-case
 
-Lets say you have a post type for recipes on your WordPress site, as well as a blog about personal experiences in your life. You may want visitors to give a rating to your recipes, but not your personal blog stories.
+Let's say you have a post type for recipes on your WordPress site, as well as a blog about personal experiences in your life. You may want visitors to give a rating to your recipes, but not your personal blog stories.
 
 ## About this project
 

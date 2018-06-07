@@ -46,10 +46,10 @@ class Pyp_Reviews_Options {
 	private $available_post_types = null;
 
 
-  /**
+	/**
 	 * Class constructor.
 	 *
-	 * Left empty in purpose. This class uses the init method.
+	 * Left empty on purpose. This class uses the init method.
 	 *
 	 * @since 1.0
 	 * @access private
@@ -65,14 +65,14 @@ class Pyp_Reviews_Options {
 		 *
 		 * @return object
 		 */
-		public static function get_instance() {
-			if ( is_null( self::$instance ) ) {
-				self::$instance = new self();
-				self::$instance->hooks();
-			}
-
-			return self::$instance;
+	public static function get_instance() {
+		if ( is_null( self::$instance ) ) {
+			self::$instance = new self();
+			self::$instance->hooks();
 		}
+
+		return self::$instance;
+	}
 
 		/**
 		 * Runs all hooks required for this class
@@ -81,124 +81,138 @@ class Pyp_Reviews_Options {
 		 *
 		 * @return null
 		 */
-		public function hooks() {
-			add_action( 'admin_menu', array( $this, 'add_plugin_page' ) );
-			add_action( 'admin_init', array( $this, 'page_init' ), 150 );
-		}
+	public function hooks() {
+		add_action( 'admin_menu', array( $this, 'add_plugin_page' ) );
+		add_action( 'admin_init', array( $this, 'page_init' ), 150 );
+	}
 
 		//Create the options page
 
 		/**
 		 * Add options page
+		 *
+		 * @since 1.0
 		 */
-		public function add_plugin_page() {
-				// This page will be under "Settings"
-				$this->pyp_review_admin_page = add_options_page(
-						'Review Settings',
-						'Review Settings',
-						'manage_options',
-						'pyp-review-settings',
-						array( $this, 'create_admin_page' )
-				);
+	public function add_plugin_page() {
+			// This page will be under "Settings"
+			$this->pyp_review_admin_page = add_options_page(
+				'Review Settings',
+				'Review Settings',
+				'manage_options',
+				'pyp-review-settings',
+				array( $this, 'create_admin_page' )
+			);
+	}
+
+	/**
+	 * Options page callback
+	 *
+	 * @since 1.0
+	 */
+	public function create_admin_page() {
+		// Set class property
+		$this->options = get_option( 'pyp_review_options' );
+		?>
+		<div class="wrap">
+			<h1><?php esc_html_e( 'Review Settings', 'pyp_review' ); ?></h1>
+			<form method="post" action="options.php">
+			<?php
+				// This prints out all hidden setting fields including the nonce
+				settings_fields( 'pyp_review_option_group' );
+				do_settings_sections( 'pyp-review-setting-admin' );
+				submit_button();
+			?>
+			</form>
+		</div>
+		<?php
+	}
+
+	/**
+	 * Register and add settings
+	 *
+	 * @since 1.0
+	 */
+	public function page_init() {
+
+		register_setting(
+			'pyp_review_option_group', // Option group
+			'pyp_review_options', // Option name
+			array( $this, 'sanitize' ) // Sanitize
+		);
+
+		add_settings_section(
+			'pyp_review_setting_section_id', // ID
+			'', // Title
+			array( $this, 'print_section_info' ), // Callback
+			'pyp-review-setting-admin' // Page
+		);
+
+		add_settings_field(
+			'posts_selected', // ID
+			__( 'Select the Post Types where you would like to enable reviews.', 'pyp_review' ), // Title
+			array( $this, 'pyp_review_posts_callback' ), // Callback
+			'pyp-review-setting-admin', // Page
+			'pyp_review_setting_section_id' // Section
+		);
+
+	}
+
+	/**
+	 * Print the Section text
+	 *
+	 * @since 1.0
+	 */
+	public function print_section_info() {
+		echo '<p>' . esc_html__( 'Enter your settings below:', 'pyp_review' ) . '</p>';
+	}
+
+	/**
+	 * Sanitize each setting field as needed
+	 *
+	 * @param array $input Contains all settings fields as array keys
+	 *
+	 * @since 1.1
+	 */
+	public function sanitize( $input ) {
+		if ( check_admin_referer( 'pyp_review_option_group-options' ) && current_user_can( 'edit_posts' ) ) {
+			return wp_unslash( $input );
+		} else {
+			exit();
 		}
+	}
 
-		/**
-     * Options page callback
-     */
-    public function create_admin_page() {
-        // Set class property
-        $this->options = get_option( 'pyp_review_options' );
-        ?>
-        <div class="wrap">
-            <h1><?php esc_html_e( 'Review Settings', 'pyp_review' ); ?></h1>
-            <form method="post" action="options.php">
-            <?php
-                // This prints out all hidden setting fields
-                settings_fields( 'pyp_review_option_group' );
-                do_settings_sections( 'pyp-review-setting-admin' );
-                submit_button();
-            ?>
-            </form>
-        </div>
-        <?php
-    }
+	/**
+	 * Render checkbox to see if users need to be logged in
+	 *
+	 * @since 1.0
+	 */
+	public function pyp_review_posts_callback() {
 
-		//Create the options on the options page
-		/**
-     * Register and add settings
-     */
-    public function page_init() {
+		$this->get_relevant_post_types();
 
-        register_setting(
-            'pyp_review_option_group', // Option group
-            'pyp_review_options', // Option name
-            array( $this, 'sanitize' ) // Sanitize
-        );
+		foreach ( $this->available_post_types as $pt_value => $pt_name ) {
+			$checked = '';
+			//check if each one was previously checked and is saved in options
+			if ( ! empty( $this->options['post_type'] ) && in_array( $pt_value, $this->options['post_type'], true ) ) {
+					$checked = $pt_value;
+			}
 
-        add_settings_section(
-            'pyp_review_setting_section_id', // ID
-            '', // Title
-            array( $this, 'print_section_info' ), // Callback
-            'pyp-review-setting-admin' // Page
-        );
+			echo '<p><label for="post_type_' . esc_attr( $pt_value ) . '">';
+			echo '<input id="post_type_' . esc_attr( $pt_value ) . '" type="checkbox" name="pyp_review_options[post_type][]" value="' . esc_attr( $pt_value ) . '"' . checked( $checked, $pt_value, false ) . '> ' . esc_html( $pt_name );
+			echo '</label></p>';
 
-        add_settings_field(
-            'posts_selected', // ID
-            __( 'Select the Post Types where you would like to enable reviews.', 'pyp_review' ), // Title
-            array( $this, 'pyp_review_posts_callback' ), // Callback
-            'pyp-review-setting-admin', // Page
-            'pyp_review_setting_section_id' // Section
-        );
+		}
+		echo '<p>' . esc_html__( "Don't see the post type your are looking for? Make sure the post type is declared as a public post type." ) . '</p>';
+	}
 
-    }
-
-		/**
-     * Print the Section text
-     */
-    public function print_section_info() {
-        echo '<p>' . esc_html__( 'Enter your settings below:', 'pyp_review' ) . '</p>';
-    }
-
-		/**
-		* Sanitize each setting field as needed
-		*
-		* @param array $input Contains all settings fields as array keys
-		*/
-	 public function sanitize( $input ) {
-		 return $input;
-	 }
-
-	 /**
-		* Render checkbox to see if users need to be logged in
-		*/
-	 public function pyp_review_posts_callback() {
-
-		 foreach ($this->available_post_types as $pt_value => $pt_name) {
-
-			 $checked = '';
-
-					 // let's see if this one is checked
-					 if ( !empty( $this->options['post_type'] ) && in_array( $pt_value, $this->options['post_type'] ) ) {
-							 $checked = $pt_value;
-					 }
-
-					 $echo = false;
-
-					 echo '<p><label for="post_type_' . $pt_value . '">';
-					 echo '<input id="post_type_' . $pt_value . '" type="checkbox" name="pyp_review_options[post_type][]" value="' . $pt_value . '"' . checked( $checked, $pt_value, $echo ) . '> ' . $pt_name;
-					 echo '</label></p>';
-
-		 }
-		 echo '<p>'.esc_html__("Don't see the post type your are looking for? Make sure the post type is declared as a public post type.").'</p>';
-	 }
-
-	 /**
-		* get a listing of public post types in a theme so we can use them as options
-		*/
-	 public function get_relevant_post_types(){
-		 $post_type_args = array(
-			 'public'   => true,
-		 );
-		 $this->available_post_types = get_post_types( $post_type_args, 'names', 'and' );
-	 }
+	/**
+	 * Get a listing of public post types in a theme so we can use them as options
+	 * @since 1.1
+	 */
+	public function get_relevant_post_types() {
+		$post_type_args = array(
+			'public' => true,
+		);
+		$this->available_post_types = get_post_types( $post_type_args, 'names', 'and' );
+	}
 }
