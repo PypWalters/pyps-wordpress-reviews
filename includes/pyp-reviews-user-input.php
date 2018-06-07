@@ -65,9 +65,15 @@ class Pyp_Reviews_Create_Rating {
 		add_action( 'comment_post', array( $this, 'pyp_save_comment_meta_data' ) );
 	}
 
+	/**
+	 * Get the post type of the current page and see if it matches any post
+	 * types saved in 'pyp_review_options'
+	 *
+	 * @Return boolean
+	 */
 	public function get_review_options() {
 		$this->options = get_option( 'pyp_review_options' );
-		if ( in_array( get_post_type(), $this->options['post_type'], true ) ) {
+		if ( isset( $this->options['post_type'] ) && in_array( get_post_type(), $this->options['post_type'], true ) ) {
 			return true;
 		} else {
 			return false;
