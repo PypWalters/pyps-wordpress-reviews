@@ -166,7 +166,7 @@ class Pyp_Reviews_Options {
 		*/
 	public function sanitize( $input ) {
 		if ( check_admin_referer( 'pyp_review_option_group-options' ) && current_user_can( 'edit_posts' ) ) {
-			return $input;
+			return wp_unslash( $input );
 		} else {
 			exit();
 		}
