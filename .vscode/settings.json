@@ -1,0 +1,8 @@
+{
+    "phpcs.enable": true,
+    "phpcs.standard": "WordPress-VIP",
+    "phpcs.executablePath": "C:/Users/spypn/vagrant-local/www/phpcs/bin/phpcs.bat",
+    "phpcbf.enable": true,
+    "phpcbf.standard": "WordPress-VIP",        
+    "phpcbf.executablePath": "C:/Users/spypn/vagrant-local/www/phpcs/bin/phpcbf.bat"
+}
