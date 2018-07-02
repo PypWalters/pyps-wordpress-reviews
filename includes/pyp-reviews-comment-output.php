@@ -25,7 +25,7 @@ class Pyp_Reviews_Output {
 	 *
 	 * @return null
 	 */
-	private function __construct() {}
+	public function __construct() {}
 
 	/**
 	 * Creates and instance of this class.
