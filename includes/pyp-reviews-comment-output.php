@@ -59,8 +59,10 @@ class Pyp_Reviews_Output {
 	 * @since 1.0
 	 */
 	public function display_saved_review( $text, $comment_obj ) {
-		$pyp_rating = get_comment_meta( $comment_obj->comment_ID, 'pyp_rating', 'single' );
-		if ( ! empty( $pyp_rating ) ) {
+		$pyp_rating      = get_comment_meta( $comment_obj->comment_ID, 'pyp_rating', 'single' );
+		$allowed_ratings = array( 1, 2, 3, 4, 5 );
+
+		if ( ! empty( $pyp_rating ) && in_array( $pyp_rating, $allowed_ratings ) ) {
 			return esc_html__( 'Rated' ) . ' ' . esc_html( $pyp_rating ) . '/5<br />' . $text;
 		}
 		return $text;
