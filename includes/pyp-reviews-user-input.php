@@ -33,14 +33,14 @@ class Pyp_Reviews_Create_Rating {
 	/**
 	 * Class constructor.
 	 *
-	 * Left empty in purpose. This class uses the init method.
+	 * Left empty on purpose. This class uses the init method.
 	 *
 	 * @since 1.0
-	 * @access private
+	 * @access public
 	 *
 	 * @return null
 	 */
-	private function __construct() {}
+	public function __construct() {}
 
 	/**
 	 * Creates and instance of this class.
@@ -92,24 +92,24 @@ class Pyp_Reviews_Create_Rating {
 	public function pyp_add_rating_field() {
 		global $post;
 		if ( $this->get_review_options() ) :
-		?>
+			?>
 		<div id="comment-form-rating">
 			<label>Your Rating for:</label>
 			<div class="star-holder">
-		    <input type="radio" class="rating-input" id="pyp-rating-5" name="pyp-rating-input" value="5">
-			  <label for="pyp-rating-5" class="rating-star"></label>
-			  <input type="radio" class="rating-input" id="pyp-rating-4" name="pyp-rating-input" value="4" checked="checked">
-			  <label for="pyp-rating-4" class="rating-star"></label>
-			  <input type="radio" class="rating-input" id="pyp-rating-3" name="pyp-rating-input" value="3">
-			  <label for="pyp-rating-3" class="rating-star"></label>
-			  <input type="radio" class="rating-input" id="pyp-rating-2" name="pyp-rating-input" value="2">
-			  <label for="pyp-rating-2" class="rating-star"></label>
-			  <input type="radio" class="rating-input" id="pyp-rating-1" name="pyp-rating-input" value="1">
-			  <label for="pyp-rating-1" class="rating-star"></label>
+				<input type="radio" class="rating-input" id="pyp-rating-5" name="pyp-rating-input" value="5">
+				<label for="pyp-rating-5" class="rating-star"></label>
+				<input type="radio" class="rating-input" id="pyp-rating-4" name="pyp-rating-input" value="4" checked="checked">
+				<label for="pyp-rating-4" class="rating-star"></label>
+				<input type="radio" class="rating-input" id="pyp-rating-3" name="pyp-rating-input" value="3">
+				<label for="pyp-rating-3" class="rating-star"></label>
+				<input type="radio" class="rating-input" id="pyp-rating-2" name="pyp-rating-input" value="2">
+				<label for="pyp-rating-2" class="rating-star"></label>
+				<input type="radio" class="rating-input" id="pyp-rating-1" name="pyp-rating-input" value="1">
+				<label for="pyp-rating-1" class="rating-star"></label>
 			</div>
-		<?php wp_nonce_field( 'create_review', '_pyp_review_nonce' ); ?>
+			<?php wp_nonce_field( 'create_review', '_pyp_review_nonce' ); ?>
 		</div>
-		<?php
+			<?php
 		endif;
 	}
 
