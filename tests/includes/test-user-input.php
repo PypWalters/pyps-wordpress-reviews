@@ -30,7 +30,6 @@ class Pyp_Reviews_Create_Rating_Test extends WP_UnitTestCase {
 		//run it
 		$create_rating_class->pyp_save_comment_meta_data( $comment_id );
 
-		//$this->assertTrue( true );
 		$this->assertTrue( '4' === get_comment_meta( $comment_id, 'pyp_rating', true ) );
 	}
 }
