@@ -85,7 +85,7 @@ class Pyp_Reviews_Create_Rating {
 	}
 
 	/**
-	 * Displays the radio butons in the comment form for the rating
+	 * Displays the radio buttons in the comment form for the rating
 	 *
 	 * @since 1.0
 	 */
@@ -119,7 +119,7 @@ class Pyp_Reviews_Create_Rating {
 	 * @since 1.0
 	 */
 	public function pyp_save_comment_meta_data( $comment_id ) {
-		//safety first
+		// safety first.
 		$retrieved_nonce = $_REQUEST['_pyp_review_nonce'];
 		if ( isset( $_POST['pyp-rating-input'] ) && wp_verify_nonce( $retrieved_nonce, 'create_review' ) ) {
 
